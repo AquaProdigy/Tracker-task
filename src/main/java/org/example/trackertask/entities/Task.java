@@ -3,6 +3,7 @@ package org.example.trackertask.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.trackertask.enums.TaskStatus;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -27,9 +28,12 @@ public class Task {
     @Column
     private String description;
 
+    @Builder.Default
+    @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    private TaskStatus status =  TaskStatus.COMPLETED;
+    private TaskStatus status =  TaskStatus.ONGOING;
 
-    @Column(nullable = false, name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @CreationTimestamp
+    @Column(nullable = false, name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
 }

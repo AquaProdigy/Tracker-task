@@ -1,6 +1,7 @@
 package org.example.trackertask.repositories;
 
 import org.example.trackertask.entities.Task;
+import org.example.trackertask.enums.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -11,4 +12,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     Optional<Task> findByDescriptionAndUserId(String description, Long userId);
     Optional<Task> findByTitleIgnoreCaseAndUserId(String title, Long userId);
     List<Task> findAllByUserId(Long userId);
+    List<Task> findAllByUserIdAndStatus(Long userId, TaskStatus status);
+    Optional<Task> findByIdAndUserId(Long id, Long userId);
 }
