@@ -9,5 +9,6 @@ public record TaskDto(
         String title,
         String description,
         TaskStatus status,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {}

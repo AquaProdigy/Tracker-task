@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.example.trackertask.enums.TaskStatus;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -36,4 +37,8 @@ public class Task {
     @CreationTimestamp
     @Column(nullable = false, name = "created_at", updatable = false)
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(nullable = false, name = "updated_at")
+    private LocalDateTime updatedAt;
 }
