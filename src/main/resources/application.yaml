@@ -6,15 +6,9 @@ spring:
     name: "Tracker-task"
 
   datasource:
-    username: admin
-    password: admin
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/task-db
-
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
 
 internal:
-  api-key: "12345678"
+  api-key: ${INTERNAL_API_KEY}

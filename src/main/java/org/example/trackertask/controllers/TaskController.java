@@ -1,6 +1,6 @@
 package org.example.trackertask.controllers;
 
-import jakarta.websocket.server.PathParam;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.trackertask.dto.TaskDto;
 import org.example.trackertask.dto.request.TaskRequest;
@@ -8,7 +8,6 @@ import org.example.trackertask.dto.request.TaskUpdateRequest;
 import org.example.trackertask.enums.TaskStatus;
 import org.example.trackertask.services.TaskService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,7 +21,7 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<Void> createTask(
-            @Validated @RequestBody TaskRequest taskRequest,
+            @Valid @RequestBody TaskRequest taskRequest,
             @RequestHeader("X-User-Id") Long userId
             ) {
         taskService.createTask(taskRequest, userId);
@@ -51,7 +50,7 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateTask(
-            @Validated @RequestBody TaskUpdateRequest taskUpdateRequest,
+            @Valid @RequestBody TaskUpdateRequest taskUpdateRequest,
             @PathVariable("id") Long taskId,
             @RequestHeader(value = "X-User-Id") Long userId
     ) {
