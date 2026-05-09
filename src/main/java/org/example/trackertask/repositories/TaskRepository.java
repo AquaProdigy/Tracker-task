@@ -28,6 +28,6 @@ WHERE t.createdAt >= :startOfDay
             @Param("endOfDay") Instant endOfDay
     );
 
-    @Query("SELECT t FROM Task t where t.status == 'IN_PROCESS'")
+    @Query("SELECT t FROM Task t where t.status = 'IN_PROCESS'")
     List<Task> findAllInProcess();
 }
