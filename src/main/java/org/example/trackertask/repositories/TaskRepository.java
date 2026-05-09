@@ -20,7 +20,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 SELECT t FROM Task t 
 WHERE t.createdAt >= :startOfDay
     AND t.createdAt < :endOfDay
-    AND t.status == "COMPLETED"
+    AND t.status = 'COMPLETED'
 
 """)
     List<Task> findCompletedToday(
