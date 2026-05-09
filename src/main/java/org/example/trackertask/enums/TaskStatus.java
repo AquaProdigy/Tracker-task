@@ -1,6 +1,6 @@
 package org.example.trackertask.enums;
 
 public enum TaskStatus {
-    ONGOING,
+    IN_PROCESS,
     COMPLETED
 }

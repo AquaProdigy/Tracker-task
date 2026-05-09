@@ -32,7 +32,7 @@ public class Task {
     @Builder.Default
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    private TaskStatus status =  TaskStatus.ONGOING;
+    private TaskStatus status =  TaskStatus.IN_PROCESS;
 
     @CreationTimestamp
     @Column(nullable = false, name = "created_at", updatable = false)

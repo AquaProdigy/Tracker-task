@@ -10,5 +10,11 @@ spring:
     password: ${POSTGRES_PASSWORD}
     url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
 
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+
 internal:
   api-key: ${INTERNAL_API_KEY}
+  header-name: ${INTERNAL_NAME_HEADER}
