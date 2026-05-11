@@ -3,7 +3,7 @@ package org.example.trackertask.services;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.trackertask.api.ApiMessages;
-import org.example.trackertask.dto.TaskDto;
+import org.example.trackertask.dto.response.TaskResponse;
 import org.example.trackertask.dto.request.TaskRequest;
 import org.example.trackertask.dto.request.TaskUpdateRequest;
 import org.example.trackertask.entities.Task;
@@ -12,31 +12,33 @@ import org.example.trackertask.exceptions.TaskAlreadyExistsException;
 import org.example.trackertask.exceptions.TaskNotFoundException;
 import org.example.trackertask.mapper.TaskMapper;
 import org.example.trackertask.repositories.TaskRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
 @RequiredArgsConstructor
 public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
 
+    @Transactional
     public void createTask(TaskRequest taskRequest, Long userId) {
-        if (taskRepository.findByTitleIgnoreCaseAndUserId(taskRequest.title(), userId).isPresent()) {
-            throw new TaskAlreadyExistsException(ApiMessages.TASK_ALREADY_EXISTS.getMessage());
-        }
-        log.info("Creating task {}", taskRequest.title());
-
         Task task = taskMapper.toEntity(taskRequest);
         task.setUserId(userId);
 
-        taskRepository.save(task);
+        try {
+            taskRepository.save(task);
+            log.info("Created task with id {} - title - {}", task.getId(), task.getTitle());
+        } catch (DataIntegrityViolationException ex) {
+            throw new TaskAlreadyExistsException(ApiMessages.TASK_ALREADY_EXISTS.getMessage());
+        }
     }
 
-    public List<TaskDto> getAllTasks(Long userId, TaskStatus status) {
+    public List<TaskResponse> getAllTasks(Long userId, TaskStatus status) {
         if (status != null) {
             log.info("Getting all tasks for status {}", status);
             return taskRepository.findAllByUserIdAndStatus(userId, status)

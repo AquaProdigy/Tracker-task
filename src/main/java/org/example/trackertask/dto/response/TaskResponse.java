@@ -1,10 +1,10 @@
-package org.example.trackertask.dto;
+package org.example.trackertask.dto.response;
 
 import org.example.trackertask.enums.TaskStatus;
 
 import java.time.LocalDateTime;
 
-public record TaskDto(
+public record TaskResponse(
         Long id,
         String title,
         String description,

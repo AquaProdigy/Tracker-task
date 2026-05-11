@@ -2,7 +2,7 @@ package org.example.trackertask.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.trackertask.dto.TaskDto;
+import org.example.trackertask.dto.response.TaskResponse;
 import org.example.trackertask.dto.request.TaskRequest;
 import org.example.trackertask.dto.request.TaskUpdateRequest;
 import org.example.trackertask.enums.TaskStatus;
@@ -30,11 +30,11 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TaskDto>> getAllTasksByStatus(
+    public ResponseEntity<List<TaskResponse>> getAllTasksByStatus(
             @RequestHeader("X-User-Id") Long userId,
             @RequestParam(required = false, name = "status") TaskStatus status
     ) {
-        List<TaskDto> tasks = taskService.getAllTasks(userId, status);
+        List<TaskResponse> tasks = taskService.getAllTasks(userId, status);
 
         return ResponseEntity.ok(tasks);
     }

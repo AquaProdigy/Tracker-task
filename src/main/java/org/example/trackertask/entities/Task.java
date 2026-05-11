@@ -9,12 +9,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tasks")
+@Table(
+        name = "tasks",
+        uniqueConstraints = @UniqueConstraint(name = "uq_tasks_user_title", columnNames = {"user_id", "title"}))
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +23,12 @@ public class Task {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String title;
 
     @Column
     private String description;
 
-    @Builder.Default
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
     private TaskStatus status =  TaskStatus.IN_PROCESS;

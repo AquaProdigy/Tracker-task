@@ -1,11 +1,9 @@
 package org.example.trackertask.services;
 
 import lombok.RequiredArgsConstructor;
-import org.example.trackertask.dto.TaskDto;
-import org.example.trackertask.dto.TaskSummaryDto;
-import org.example.trackertask.dto.UserDailyTaskSummary;
+import org.example.trackertask.dto.response.TaskSummaryResponse;
+import org.example.trackertask.dto.response.UserDailyTaskSummaryResponse;
 import org.example.trackertask.entities.Task;
-import org.example.trackertask.mapper.TaskMapper;
 import org.example.trackertask.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,30 +21,30 @@ import java.util.stream.Stream;
 public class InternalService {
     private final TaskRepository taskRepository;
 
-    public List<UserDailyTaskSummary> getSummaryTasks() {
+    public List<UserDailyTaskSummaryResponse> getSummaryTasks() {
         Instant startOfDay = LocalDate.now(ZoneOffset.UTC)
                 .atStartOfDay(ZoneOffset.UTC).toInstant();
         Instant endOfDay = startOfDay.plus(1, ChronoUnit.DAYS);
 
-        Map<Long, List<TaskSummaryDto>> completedByUser = taskRepository
+        Map<Long, List<TaskSummaryResponse>> completedByUser = taskRepository
                 .findCompletedToday(startOfDay, endOfDay)
                 .stream()
                 .collect(Collectors.groupingBy(
                         Task::getUserId,
-                        Collectors.mapping(t -> new TaskSummaryDto(t.getTitle()), Collectors.toList())
+                        Collectors.mapping(t -> new TaskSummaryResponse(t.getTitle()), Collectors.toList())
                 ));
 
-        Map<Long, List<TaskSummaryDto>> inProgressByUser = taskRepository
+        Map<Long, List<TaskSummaryResponse>> inProgressByUser = taskRepository
                 .findAllInProcess()
                 .stream()
                 .collect(Collectors.groupingBy(
                         Task::getUserId,
-                        Collectors.mapping(t -> new TaskSummaryDto(t.getTitle()), Collectors.toList())
+                        Collectors.mapping(t -> new TaskSummaryResponse(t.getTitle()), Collectors.toList())
                 ));
 
         return Stream.concat(completedByUser.keySet().stream(), inProgressByUser.keySet().stream())
                 .distinct()
-                .map(userId -> new UserDailyTaskSummary(
+                .map(userId -> new UserDailyTaskSummaryResponse(
                         userId,
                         completedByUser.getOrDefault(userId, List.of()),
                         inProgressByUser.getOrDefault(userId, List.of())
