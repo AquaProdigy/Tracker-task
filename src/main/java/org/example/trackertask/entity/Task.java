@@ -31,7 +31,7 @@ public class Task {
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false)
-    private TaskStatus status =  TaskStatus.IN_PROCESS;
+    private TaskStatus status =  TaskStatus.IN_PROGRESS;
 
     @CreationTimestamp
     @Column(nullable = false, name = "created_at", updatable = false)

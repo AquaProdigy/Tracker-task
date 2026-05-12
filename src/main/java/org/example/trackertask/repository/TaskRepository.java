@@ -11,10 +11,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
-    Optional<Task> findByTitleIgnoreCaseAndUserId(String title, Long userId);
     List<Task> findAllByUserId(Long userId);
-    List<Task> findAllByUserIdAndStatus(Long userId, TaskStatus status);
     Optional<Task> findByIdAndUserId(Long id, Long userId);
+
+    @Query("""
+SELECT t FROM Task t
+WHERE t.userId = :userId
+and (:status is null or t.status = :status)
+""")
+    List<Task> findAllByUserIdAndStatus(Long userId, TaskStatus status);
 
     @Query("""
 SELECT t FROM Task t 
@@ -28,6 +33,6 @@ WHERE t.createdAt >= :startOfDay
             @Param("endOfDay") Instant endOfDay
     );
 
-    @Query("SELECT t FROM Task t where t.status = 'IN_PROCESS'")
+    @Query("SELECT t FROM Task t where t.status = 'IN_PROGRESS'")
     List<Task> findAllInProcess();
 }

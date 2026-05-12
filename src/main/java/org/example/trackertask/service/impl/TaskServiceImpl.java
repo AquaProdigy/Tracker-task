@@ -40,17 +40,9 @@ public class TaskServiceImpl implements TaskService {
     }
 
     public List<TaskResponse> getAllTasks(Long userId, TaskStatus status) {
-        if (status != null) {
-            log.info("Getting all tasks for status {}", status);
-            return taskRepository.findAllByUserIdAndStatus(userId, status)
-                    .stream()
-                    .map(taskMapper::toDto)
-                    .toList();
-        }
-
-        log.info("Getting all tasks without status");
-        return taskRepository.findAllByUserId(userId)
-                .stream()
+        List<Task> tasks = taskRepository.findAllByUserIdAndStatus(userId, status);
+        log.info("Found {} tasks for status {}", tasks.size(), status);
+        return tasks.stream()
                 .map(taskMapper::toDto)
                 .toList();
     }
