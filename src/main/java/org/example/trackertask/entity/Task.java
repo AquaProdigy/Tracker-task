@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
         uniqueConstraints = @UniqueConstraint(name = "uq_tasks_user_title", columnNames = {"user_id", "title"}))
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
