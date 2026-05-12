@@ -3,7 +3,7 @@ package org.example.trackertask.mapper;
 import org.example.trackertask.dto.response.TaskResponse;
 import org.example.trackertask.dto.request.TaskRequest;
 import org.example.trackertask.dto.request.TaskUpdateRequest;
-import org.example.trackertask.entities.Task;
+import org.example.trackertask.entity.Task;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")

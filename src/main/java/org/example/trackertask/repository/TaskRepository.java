@@ -1,7 +1,7 @@
-package org.example.trackertask.repositories;
+package org.example.trackertask.repository;
 
-import org.example.trackertask.entities.Task;
-import org.example.trackertask.enums.TaskStatus;
+import org.example.trackertask.entity.Task;
+import org.example.trackertask.model.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

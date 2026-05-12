@@ -1,4 +1,4 @@
-package org.example.trackertask.exceptions;
+package org.example.trackertask.exception;
 
 public class TaskAlreadyExistsException extends RuntimeException {
     public TaskAlreadyExistsException(String message) {

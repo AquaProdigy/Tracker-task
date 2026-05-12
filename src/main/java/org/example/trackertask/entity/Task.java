@@ -1,8 +1,8 @@
-package org.example.trackertask.entities;
+package org.example.trackertask.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.example.trackertask.enums.TaskStatus;
+import org.example.trackertask.model.TaskStatus;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 

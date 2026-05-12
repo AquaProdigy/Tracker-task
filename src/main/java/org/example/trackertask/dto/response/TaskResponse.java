@@ -1,6 +1,6 @@
 package org.example.trackertask.dto.response;
 
-import org.example.trackertask.enums.TaskStatus;
+import org.example.trackertask.model.TaskStatus;
 
 import java.time.LocalDateTime;
 

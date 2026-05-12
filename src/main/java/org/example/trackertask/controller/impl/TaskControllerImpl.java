@@ -1,12 +1,14 @@
-package org.example.trackertask.controllers;
+package org.example.trackertask.controller.impl;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.trackertask.controller.TaskController;
 import org.example.trackertask.dto.response.TaskResponse;
 import org.example.trackertask.dto.request.TaskRequest;
 import org.example.trackertask.dto.request.TaskUpdateRequest;
-import org.example.trackertask.enums.TaskStatus;
-import org.example.trackertask.services.TaskService;
+import org.example.trackertask.model.TaskStatus;
+
+import org.example.trackertask.service.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +18,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/tasks")
 @RequiredArgsConstructor
-public class TaskController {
+public class TaskControllerImpl implements TaskController {
     private final TaskService taskService;
 
-    @PostMapping
+    @Override
     public ResponseEntity<Void> createTask(
             @Valid @RequestBody TaskRequest taskRequest,
             @RequestHeader("X-User-Id") Long userId
@@ -29,7 +31,7 @@ public class TaskController {
         return ResponseEntity.created(URI.create("/tasks")).build();
     }
 
-    @GetMapping
+    @Override
     public ResponseEntity<List<TaskResponse>> getAllTasksByStatus(
             @RequestHeader("X-User-Id") Long userId,
             @RequestParam(required = false, name = "status") TaskStatus status
@@ -39,7 +41,7 @@ public class TaskController {
         return ResponseEntity.ok(tasks);
     }
 
-    @DeleteMapping("/{id}")
+    @Override
     public ResponseEntity<Void> deleteTask(
             @PathVariable Long id,
             @RequestHeader("X-User-Id") Long userId
@@ -48,7 +50,7 @@ public class TaskController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
+    @Override
     public ResponseEntity<Void> updateTask(
             @Valid @RequestBody TaskUpdateRequest taskUpdateRequest,
             @PathVariable("id") Long taskId,

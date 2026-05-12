@@ -1,4 +1,4 @@
-package org.example.trackertask.services;
+package org.example.trackertask.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,12 +6,13 @@ import org.example.trackertask.api.ApiMessages;
 import org.example.trackertask.dto.response.TaskResponse;
 import org.example.trackertask.dto.request.TaskRequest;
 import org.example.trackertask.dto.request.TaskUpdateRequest;
-import org.example.trackertask.entities.Task;
-import org.example.trackertask.enums.TaskStatus;
-import org.example.trackertask.exceptions.TaskAlreadyExistsException;
-import org.example.trackertask.exceptions.TaskNotFoundException;
+import org.example.trackertask.entity.Task;
+import org.example.trackertask.model.TaskStatus;
+import org.example.trackertask.exception.TaskAlreadyExistsException;
+import org.example.trackertask.exception.TaskNotFoundException;
 import org.example.trackertask.mapper.TaskMapper;
-import org.example.trackertask.repositories.TaskRepository;
+import org.example.trackertask.repository.TaskRepository;
+import org.example.trackertask.service.TaskService;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class TaskService {
+public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
 

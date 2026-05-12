@@ -1,10 +1,11 @@
-package org.example.trackertask.services;
+package org.example.trackertask.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.example.trackertask.dto.response.TaskSummaryResponse;
 import org.example.trackertask.dto.response.UserDailyTaskSummaryResponse;
-import org.example.trackertask.entities.Task;
-import org.example.trackertask.repositories.TaskRepository;
+import org.example.trackertask.entity.Task;
+import org.example.trackertask.repository.TaskRepository;
+import org.example.trackertask.service.InternalService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -18,7 +19,7 @@ import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
-public class InternalService {
+public class InternalServiceImpl implements InternalService {
     private final TaskRepository taskRepository;
 
     public List<UserDailyTaskSummaryResponse> getSummaryTasks() {

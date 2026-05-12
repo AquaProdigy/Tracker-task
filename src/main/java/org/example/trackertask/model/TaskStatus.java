@@ -1,4 +1,4 @@
-package org.example.trackertask.enums;
+package org.example.trackertask.model;
 
 public enum TaskStatus {
     IN_PROCESS,
